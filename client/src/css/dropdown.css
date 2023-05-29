@@ -1,0 +1,12 @@
+/* Placeholder dropdown font-size */
+.css-1jqq78o-placeholder, .css-1dimb5e-singleValue,
+.css-10wo9uf-option, .css-d7l1ni-option  {
+    font-size: 14px !important;
+    letter-spacing: 0.3px;
+}
+
+/* Actual dropdown when selecting */
+.css-qbdosj-Input {
+    font-size: 14px;
+}
+

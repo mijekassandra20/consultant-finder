@@ -1,0 +1,100 @@
+.main-component-wrapper.settings {
+    display: flex;
+    /* flex-wrap: wrap; */
+    height: 400px;
+    padding: 0;
+}
+
+.main-component-wrapper.settings .column2 .settings-value .value-btn{
+    display: flex;
+    border-radius: 6px;
+    width: 130px; 
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 00;
+    letter-spacing: 0.5px;
+}
+
+
+.main-component-wrapper.settings .column1 {
+    padding: 25px;
+    width: 25%;
+    background: #EEEEEE;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.main-component-wrapper.settings .column2 {
+    /* margin: 20px; */
+    padding: 25px;
+    width: 65%;
+}
+
+.main-component-wrapper.settings .setting-title h3 {
+    font-weight: 600;
+    letter-spacing: 1px;
+    /* margin-bottom: 15px; */
+}
+
+.main-component-wrapper.settings .setting-options {
+    display: grid;
+    gap: 10px;
+    margin-top: 25px;
+    font-size: 16px;
+}
+
+.main-component-wrapper.settings .setting-options p {
+    cursor: pointer;
+}
+
+.main-component-wrapper.settings .column2 .settings-title{
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.main-component-wrapper.settings .column2 .settings-value {
+    display: flex;
+}
+
+.active-setting {
+    color: white;
+    background: #e2552dd2;
+    border-radius: 6px;
+    padding: 5px 15px;
+    font-size: 18px;
+}
+
+.inactive-setting {
+    border-radius: 6px;
+    padding: 5px 15px;
+    font-weight: 500;
+}
+
+/* -------------------------------------------------------------- */
+
+.main-component-wrapper.settings .column2 .database-container {
+    display: grid;
+    gap: 30px
+}
+
+.settings-value .upload-btn {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.settings-value .value-btn.download{
+    color: white;
+    background: #0d7270;
+    cursor: pointer;
+}
+
+.settings-value .value-btn.download:hover{
+    background: #0a5c5b;
+}
+
+.error-message.settings {
+    margin-top: 10px;
+}

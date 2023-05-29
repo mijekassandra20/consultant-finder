@@ -1,0 +1,132 @@
+.child-filter-container {
+    background: #F9F9F9;
+    margin-left:10px;
+    padding: 10px;
+    border-left: 5px solid rgb(0,0,0,0.5);
+}
+
+#filter-component {
+    display: flex;
+    justify-content: space-between;
+}
+
+.child-filter-wrapper {
+    display: flex;
+    padding: 7px 5px;
+    gap: 15px;
+}
+
+.select-filter-container {
+    display: flex;
+}
+
+.child-filter-wrapper .delete-icon {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    margin-left: 10px;
+    border-color: hsl(0, 0%, 80%);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+
+.child-filter-wrapper .delete-icon:hover {
+    border-color:rgba(255, 0, 0, 0.801);
+}
+
+.condition-container {
+    color: #7B7B7B;
+    display: flex;
+    align-items: center;
+    padding: 5px 5px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+.condition-container p {
+    text-align: center;
+    width: 60px;
+    cursor: pointer;
+    /* margin: 0 10px; */
+}
+
+.condition-container p:hover {
+    color: #7b7b7b82;
+}
+
+.line-1 {
+    height: 1px;
+    width: 80%;
+    background: #7B7B7B;
+}
+
+
+.default-add-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #EEEEEE;
+    border-radius: 4px;
+    width: 80px;
+    padding: 3px;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.default-add-button:hover {
+    background: #dadada;
+}
+
+.default-add-button .add-icon {
+    display: flex;
+    align-items: center;
+
+}
+
+.default-add-button .add-word {
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.5px;
+    font-size: 15px;
+}
+
+.outer-default-add {
+    font-size: 25px;
+    /* margin: 5px 0 5px 0; */
+    cursor: pointer;
+}
+
+.outer-div {
+    display: flex;
+    justify-content: center;
+    width: 70px;
+    color: white;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+}
+
+.outer-div p:hover{
+    color: white;
+}
+
+.and-container {
+    background: #0d7270;
+}
+
+.or-container {
+    background: #b34629;
+}
+
+/* -------------------------------- */
+.dropdown-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
