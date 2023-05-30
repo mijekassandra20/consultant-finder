@@ -36,7 +36,7 @@ const FilterComponent = (props) => {
         }
 
         setFilterValues([...filterValues, newMainFilter]);
-        console.log('filterValues: ', filterValues)
+        // console.log('filterValues: ', filterValues)
     }
 
     return (

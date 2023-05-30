@@ -125,7 +125,7 @@ const MainComponent = () => {
 
             setRecords(response.data[0]) // data
             setSaveQuery(response.data[1]) // save the query
-            console.table(response.data[0])
+            // console.table(response.data[0])
             // console.log('filterValues: ', filterValues)
             // console.log(saveQuery)
 

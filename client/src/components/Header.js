@@ -11,7 +11,9 @@ const Header = () => {
 
     const {
         toggleSettings, setToggleSettings,
-        setToggleMainComponent, toggleMainComponent } = useContext(AppContext)
+        setToggleMainComponent, toggleMainComponent,
+        setRecords, setFilterValues, setOuterConditionState
+    } = useContext(AppContext)
 
     const handleMainComponent = () => {
         setToggleMainComponent(true)
@@ -21,6 +23,19 @@ const Header = () => {
     const handleSettings = () => {
         setToggleSettings(true)
         setToggleMainComponent(false)
+        setRecords([])
+        setFilterValues([{
+            id: uuidv4(),
+            innerFilters: [{
+                innerID: uuidv4(),
+                selectedFilterTable: '',
+                selectedColumn: '',
+                operator: '',
+                inputValue: ''
+            }],
+            condition: ['AND']
+        }])
+        setOuterConditionState(['AND'])
     }
 
     return (
@@ -32,17 +47,10 @@ const Header = () => {
                 <h3>CONSULTANT FINDER</h3>
             </div>
             <div className='settings-container'>
-                {/* <p className={`header-icon ${toggleMainComponent ? 'active-header' : ''}`}>
-                    HOME
-                </p> */}
                 <HiHome
                     className={`header-icon ${toggleMainComponent ? 'active-header' : ''}`}
                     onClick={handleMainComponent}
                 />
-
-                {/* <p className={`header-icon ${toggleMainComponent ? 'active-header' : ''}`}>
-                    SETTINGS
-                </p> */}
                 <HiCog6Tooth
                     className={`header-icon ${toggleSettings ? 'active-header' : ''}`}
                     onClick={handleSettings}

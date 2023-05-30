@@ -69,6 +69,7 @@ const DisplayBookmarks = () => {
 
     const handleCloseModal = () => {
         setBookmarkModal(false);
+        setRecords([])
     };
 
     return (
