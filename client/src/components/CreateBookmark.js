@@ -26,7 +26,7 @@ const CreateBookmark = ({ setOpenModal, handleCloseModal }) => {
                 return;
             }
 
-            const response = await axios.post('http://localhost:5000/api/record/bookmark', {
+            await axios.post('http://localhost:5000/api/record/bookmark', {
                 saveQuery: saveQuery,
                 bookmarkTitle: bookmarkTitle,
                 bookmarkDes: bookmarkDes

@@ -35,7 +35,7 @@ const AddFilter = (props) => {
   useEffect(() => {
     const fetchFilterColumns = async () => {
       try {
-        if (props.selectedFilterTable.value) {
+        if (tableFilter) {
           const response = await axios.get(`http://localhost:5000/api/record/columns/${tableFilter}/metadata`);
 
           const columnOptions = response.data.columnNames.map(columnName => ({
@@ -51,7 +51,7 @@ const AddFilter = (props) => {
     }
 
     fetchFilterColumns();
-  }, [props.selectedFilterTable.value, props.filterValues.selectedColumn, filterValues.operator, filterValues.inputValue])
+  }, [tableFilter, props.filterValues.selectedColumn, filterValues.operator, filterValues.inputValue])
 
   // get metadatas to display
   useEffect(() => {
@@ -77,7 +77,7 @@ const AddFilter = (props) => {
     }
 
     fetchMetadata();
-  }, [columnFilter, props.selectedFilterTable.value, filterValues.selectedColumn, filterValues.operator, filterValues.inputValue])
+  }, [columnFilter, tableFilter, props.selectedFilterTable.value, filterValues.selectedColumn, filterValues.operator, filterValues.inputValue])
 
 
   const removeCondition = () => {

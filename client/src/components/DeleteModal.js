@@ -13,7 +13,8 @@ const DeleteModal = ({ setConfirmModal, closeConfirmPopUp, selectedBookmark, fet
     const deleteBookmarked = async () => {
 
         try {
-            const response = await axios.post('http://localhost:5000/api/record/delete-bookmark', {
+
+            await axios.post('http://localhost:5000/api/record/delete-bookmark', {
                 selectedBookmark: selectedBookmark,
             });
 
