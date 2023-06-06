@@ -632,7 +632,10 @@ const insertNewImport = async (req, res, next) => {
                     executeQuery = await conn.query(insertStatement);
                 } else {
                     for (let row of dataArray) {
-                        const values = columns.map(col => `'${row[col]}'`);
+                        const values = columns.map(col => {
+                            const escapedValue = row[col].replace(/'/g, "''"); // Escape single quotes by doubling them
+                            return `'${escapedValue}'`;
+                        });
                         const insertStatement = `${insertQuery} VALUES ('${FirstName}', '${LastName}', '${ExternalEmployeeID}', ${values.join(', ')})`;
                         // console.log('Insert Statement:', insertStatement);
                         executeQuery = await conn.query(insertStatement);
