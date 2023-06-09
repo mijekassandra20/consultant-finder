@@ -39,14 +39,38 @@ const FilterComponent = (props) => {
         // console.log('filterValues: ', filterValues)
     }
 
+    const clearConditions = () => {
+        setOuterFilterCount(1);
+        setOuterFilters([]);
+        setFilterValues([{
+            id: uuidv4(),
+            innerFilters: [{
+                innerID: uuidv4(),
+                selectedFilterTable: '',
+                selectedColumn: '',
+                operator: '',
+                inputValue: ''
+            }],
+            condition: ['AND']
+        }]);
+        setOuterConditionState(['AND']);
+    }
+
     return (
         <div className='filter-component-wrapper' id='component-border'>
             <div className='child-container-2'>
                 <div className='title-wrapper'> FILTER</div>
-                <div className='delete-icon'>
-                    <FaMinusCircle
-                        onClick={props.onClose} />
+                <div className='icons-wrapper filter'>
+                    <div className='clear-filter' onClick={clearConditions}>
+                        <p>CLEAR</p>
+                    </div>
+                    <p>|</p>
+                    <div className='delete-icon filter'>
+                        <FaMinusCircle
+                            onClick={props.onClose} />
+                    </div>
                 </div>
+
             </div>
             {/* ------------------- OUTER FILTER PART ------------------- */}
 

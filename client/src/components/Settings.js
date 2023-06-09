@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { AppContext } from '../App';
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 // import files
@@ -13,7 +12,8 @@ import { HiOutlineArrowDownTray } from 'react-icons/hi2'
 
 const Settings = () => {
 
-    const { errorMessage, setErrorMessage } = useContext(AppContext)
+    const [importErrorMessage, setImportErrorMessage] = useState("")
+    const [databaseErrorMessage, setDatabaseErrorMessage] = useState("")
 
     const [activeSetting, setActiveSetting] = useState('Bookmark');
 
@@ -23,9 +23,10 @@ const Settings = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            setErrorMessage("");
+            setImportErrorMessage("");
+            setDatabaseErrorMessage("");
         }, 10000)
-    }, [errorMessage, setErrorMessage])
+    }, [importErrorMessage, setImportErrorMessage, databaseErrorMessage, setDatabaseErrorMessage])
 
     // UPLOAD NEW DATABASE
     const handleFileUpload = (event) => {
@@ -41,11 +42,11 @@ const Settings = () => {
             .then(response => {
                 console.log(response.data);
                 alert('File uploaded successfully!');
-                setErrorMessage(false)
+                setDatabaseErrorMessage(false)
 
             })
             .catch(error => {
-                setErrorMessage(error.response.data.message)
+                setDatabaseErrorMessage(error.response.data.message)
                 console.log(error);
             });
     }
@@ -84,11 +85,11 @@ const Settings = () => {
             .then(response => {
                 console.log(response.data);
                 alert('File imported successfully!');
-                setErrorMessage(false)
+                setImportErrorMessage(false)
 
             })
             .catch(error => {
-                setErrorMessage(error.response.data.message)
+                setImportErrorMessage(error.response.data.message)
                 console.log(error);
             });
     }
@@ -100,11 +101,11 @@ const Settings = () => {
                 .then(response => {
                     console.log(response.data);
                     alert('Data imported successfully into the database!');
-                    setErrorMessage(false)
+                    setImportErrorMessage(false)
 
                 })
                 .catch(error => {
-                    setErrorMessage(error.response.data.message)
+                    setImportErrorMessage(error.response.data.message)
                     console.log(error);
                 });
 
@@ -181,6 +182,9 @@ const Settings = () => {
                                         </div>
                                     </div>
                                 </div>
+                                {importErrorMessage && (
+                                    <p className='error-message settings'>*{importErrorMessage}</p>
+                                )}
                             </div>
 
                         }
@@ -213,12 +217,13 @@ const Settings = () => {
                                         </div>
                                     </div>
                                 </div>
+                                {databaseErrorMessage && (
+                                    <p className='error-message settings'>*{databaseErrorMessage}</p>
+                                )}
                             </div>
                         }
 
-                        {errorMessage && (
-                            <p className='error-message settings'>*{errorMessage}</p>
-                        )}
+
 
                     </div>
                 </div>

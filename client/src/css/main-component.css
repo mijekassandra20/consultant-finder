@@ -64,6 +64,10 @@ html, body {
     margin-bottom: 5px;
 }
 
+.error-message.modal {
+    font-size: 12px;
+}
+
 .header .app-title-container,
 .header .settings-container {
     display: flex;

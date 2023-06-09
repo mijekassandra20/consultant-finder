@@ -56,6 +56,27 @@ const MainComponent = () => {
         setOpenModal(false);
     };
 
+    // const handleClear = () => {
+    //     setFilterValues([{
+    //         id: uuidv4(),
+    //         innerFilters: [{
+    //             innerID: uuidv4(),
+    //             selectedFilterTable: '',
+    //             selectedColumn: '',
+    //             operator: '',
+    //             inputValue: ''
+    //         }],
+    //         condition: ['AND']
+    //     }]);
+    //     setOuterConditionState(['AND']);
+    //     setRecords([]);
+    //     setOrder('ASC');
+    //     setSortedColumn("")
+    //     setLimit("")
+    //     setToggleFilter(false)
+    //     setToggleSort(false)
+    //     setToggleLimit(false)
+    // }
 
     const handleFilterClose = () => {
         setToggleFilter(false);
@@ -240,10 +261,22 @@ const MainComponent = () => {
 
                 </div>
 
-                <div className='bookmark-icon' onClick={handleOpenModal}>
-                    <IoBookmarkOutline />
-                    <p>Bookmark</p>
+                <div className='icons-wrapper'>
+
+                    {/* <div className='clear-icon' onClick={handleClear}>
+                        <p>CLEAR</p>
+                    </div> */}
+
+                    <div className='bookmark-icon' onClick={handleOpenModal}>
+                        <IoBookmarkOutline />
+                        <p>Bookmark</p>
+                    </div>
+
+
+
                 </div>
+
+
 
                 {openModal === true && (
                     <CreateBookmark

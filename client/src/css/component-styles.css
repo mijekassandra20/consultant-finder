@@ -26,6 +26,59 @@
     gap: 10px;
 }
 
+.icons-wrapper {
+    display: flex;
+    gap: 10px
+}
+
+.icons-wrapper.filter {
+    align-items: center;
+}
+
+.clear-filter {
+    /* font-size: 13px;
+    display: flex;
+    justify-content: center;
+    letter-spacing: 0.5px;
+    margin-right: 5px;
+    padding: 2px 5px;
+    font-weight: 400;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #0e5847;
+    width: 50px; */
+
+    color: white;
+    font-size: 13px;
+    letter-spacing: 0.8px;
+    background: gray;
+    border-radius: 5px;
+    font-weight: 500;
+    width: 60px;
+    text-align: center;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.clear-filter:hover {
+    font-weight: 500;
+    background: #0e5847;
+}
+
+.clear-icon {
+    display: flex;
+    height: 23px;
+    border: 1px solid #0e5847;
+    border-radius: 4px;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.delete-icon.filter {
+    display: flex;
+    align-items: center;
+}
+
 .bookmark-icon {
     display: flex;
     font-size: 15px;

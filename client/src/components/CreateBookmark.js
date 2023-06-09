@@ -9,9 +9,8 @@ import '../css/modal.css'
 const CreateBookmark = ({ setOpenModal, handleCloseModal }) => {
 
     const {
-        saveQuery
+        saveQuery, records
     } = useContext(AppContext);
-
 
     const [bookmarkTitle, setBookmarkTitle] = useState('')
     const [bookmarkDes, setBookmarkDes] = useState('')
@@ -26,13 +25,19 @@ const CreateBookmark = ({ setOpenModal, handleCloseModal }) => {
                 return;
             }
 
-            await axios.post('http://localhost:5000/api/record/bookmark', {
-                saveQuery: saveQuery,
-                bookmarkTitle: bookmarkTitle,
-                bookmarkDes: bookmarkDes
-            });
+            if (records.length === 0) {
+                setModalErrorMessage(`No records were saved. Make sure to click 'FIND'`)
+            } else {
+                await axios.post('http://localhost:5000/api/record/bookmark', {
+                    saveQuery: saveQuery,
+                    bookmarkTitle: bookmarkTitle,
+                    bookmarkDes: bookmarkDes
+                });
 
-            setOpenModal(false)
+                setOpenModal(false)
+            }
+
+
 
         } catch (error) {
             setModalErrorMessage(error.response.data.message)
@@ -56,7 +61,7 @@ const CreateBookmark = ({ setOpenModal, handleCloseModal }) => {
                 <div className='modal-container'>
                     <div className='modal-input-container'>
                         <div className='modal-title'>
-                            Name:
+                            Title:
                         </div>
                         <input
                             className='input-container modal'
@@ -80,7 +85,7 @@ const CreateBookmark = ({ setOpenModal, handleCloseModal }) => {
 
                 <hr />
                 {modalErrorMessage && (
-                    <p className='error-message'>*{modalErrorMessage}</p>
+                    <p className='error-message modal'>*{modalErrorMessage}</p>
                 )}
                 <div className='modal-buttons-container'>
                     <p className='cancel-button' onClick={handleCloseModal}>CANCEL</p>
