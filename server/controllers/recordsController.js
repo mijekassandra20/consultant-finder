@@ -247,6 +247,7 @@ const createTableQuery = async (req, res, next) => {
                 const selectedFilterColumns = filterValues[0].innerFilters.map((filterValue) => filterValue.selectedColumn);
                 const operators = filterValues[0].innerFilters.map((filterValue) => filterValue.operator)
                 const inputValues = filterValues[0].innerFilters.map((filterValue) => filterValue.inputValue)
+                console.log(`selectedFilterColumns`, selectedFilterColumns)
 
                 for (let i = 0; i < selectedFilterColumns.length; i++) {
                     let filterColumn = `${selectedFilterTables[i]}.${selectedFilterColumns[i]}`; // columns ex. Engagements.EngagementTypes
@@ -292,6 +293,7 @@ const createTableQuery = async (req, res, next) => {
                             result += `${conditions[i]} ${filterValues[0].condition[i]} `;
                         } else {
                             result += `${conditions[i]}`;
+
                         }
                     }
 
@@ -345,7 +347,7 @@ const createTableQuery = async (req, res, next) => {
                     const inputValue = innerFilters[j].inputValue;
 
                     const filterColumn = `${selectedFilterTable}.${selectedFilterColumn}`;
-                    // const condition = `(${filterColumn} ${operator} '${inputValue}')`;
+                    // const condition = `(${ filterColumn } ${ operator } '${inputValue}')`;
 
                     let condition;
                     let columnAlias;
@@ -435,12 +437,12 @@ const createTableQuery = async (req, res, next) => {
                         conditionResult += `${finalConditions[i]} ${outerConditionState[i]} `
                         console.log(`if ${i}: `, conditionResult)
                     } else {
-                        conditionResult += `${finalConditions[i]}`;
+                        conditionResult += `${finalConditions[i]} `;
                         console.log(`else ${i}: `, conditionResult)
                     }
                 }
 
-                const finalQuery = result + `FROM ` + openingParentheses + `${selectedTable} ` + partialResult + `WHERE ` + conditionResult
+                const finalQuery = result + `FROM ` + openingParentheses + `${selectedTable} ` + partialResult + `WHERE` + conditionResult
                 result = finalQuery;
 
             }
@@ -453,10 +455,15 @@ const createTableQuery = async (req, res, next) => {
             const mainColumnsArray = mappedMainColumns.split(',').map((column) => column.trim());
 
             const holdAllColumns = [...mainColumnsArray, ...secondaryColumns]
-            const matchedString = holdAllColumns.find(str => str.endsWith(`.${sortedColumn.value}`));
+
+            const matchedString = holdAllColumns.find(str => {
+                const columnName = sortedColumn.value;
+                return str.includes(columnName);
+            });
 
             if (matchedString) {
-                result += ` ORDER BY ${matchedString} ${order}`
+                const extractedColumnName = matchedString.split(' AS ')[0];
+                result += ` ORDER BY ${extractedColumnName} ${order}`
                 getRecords = await conn.query(result);
             }
 
@@ -464,7 +471,7 @@ const createTableQuery = async (req, res, next) => {
             getRecords = await conn.query(result);
         }
 
-        // console.log('FINAL QUERY: ', result)
+        console.log('FINAL QUERY: ', result)
 
         res
             .status(200)
@@ -473,7 +480,7 @@ const createTableQuery = async (req, res, next) => {
 
 
     } catch (error) {
-        throw new Error(`Failed to execute query that will get the tables and columns: ${error.message}`)
+        throw new Error(`Failed to execute query that will get the tables and columns: ${error.message} `)
     }
 }
 
@@ -504,7 +511,7 @@ const download = async (req, res, next) => {
         }
 
     } catch (error) {
-        throw new Error(`Failed to download file: ${error.message}`)
+        throw new Error(`Failed to download file: ${error.message} `)
     }
 }
 
@@ -528,7 +535,7 @@ const deleteImport = async (req, res, next) => {
         });
 
     } catch (error) {
-        throw new Error(`Error deleting the import: ${error.message}`)
+        throw new Error(`Error deleting the import: ${error.message} `)
 
     }
 }
@@ -616,7 +623,7 @@ const insertNewImport = async (req, res, next) => {
         // inserting happens here
         for (let worksheetName in worksheetData) {
             const dataArray = worksheetData[worksheetName];
-            const insertQuery = `INSERT INTO ${worksheetName}`;
+            const insertQuery = `INSERT INTO ${worksheetName} `;
 
             if (dataArray.length > 0) {
 
@@ -627,7 +634,7 @@ const insertNewImport = async (req, res, next) => {
                         .filter(row => Object.values(row).some(value => value !== '')) // Filter out rows with all empty cells
                         .map(row => `(${columns.map(col => `'${row[col]}'`).join(', ')})`);
 
-                    const insertStatement = `${insertQuery} VALUES ${values.join(', ')}`;
+                    const insertStatement = `${insertQuery} VALUES ${values.join(', ')} `;
                     // console.log('Insert Statement:', insertStatement);
                     executeQuery = await conn.query(insertStatement);
                 } else {
@@ -636,7 +643,7 @@ const insertNewImport = async (req, res, next) => {
                             const escapedValue = row[col].replace(/'/g, "''"); // Escape single quotes by doubling them
                             return `'${escapedValue}'`;
                         });
-                        const insertStatement = `${insertQuery} VALUES ('${FirstName}', '${LastName}', '${ExternalEmployeeID}', ${values.join(', ')})`;
+                        const insertStatement = `${insertQuery} VALUES('${FirstName}', '${LastName}', '${ExternalEmployeeID}', ${values.join(', ')})`;
                         // console.log('Insert Statement:', insertStatement);
                         executeQuery = await conn.query(insertStatement);
                     }
@@ -650,7 +657,7 @@ const insertNewImport = async (req, res, next) => {
             .json({ message: 'Successfully imported the consultants data.' })
 
     } catch (error) {
-        throw new Error(`Error inserting new data in the database: ${error.message}`)
+        throw new Error(`Error inserting new data in the database: ${error.message} `)
     }
 }
 
@@ -674,7 +681,7 @@ const postBookmark = async (req, res, next) => {
 
         const queryValue = saveQuery.replace(/'/g, "''"); // Escape single quotes in the query
 
-        const addBookmark = await conn.query(`INSERT INTO bookmark VALUES('${bookmarkTitle}', '${bookmarkDes}', '${queryValue}' ,'${readableDate}')`);
+        const addBookmark = await conn.query(`INSERT INTO bookmark VALUES('${bookmarkTitle}', '${bookmarkDes}', '${queryValue}', '${readableDate}')`);
 
         await conn.commit();
 
@@ -684,7 +691,7 @@ const postBookmark = async (req, res, next) => {
             .json({ addBookmark })
 
     } catch (error) {
-        throw new Error(`Error saving the bookmark: ${error.message}`)
+        throw new Error(`Error saving the bookmark: ${error.message} `)
     }
 
 }
@@ -706,7 +713,7 @@ const getBookmarks = async (req, res, next) => {
             .json(bookmarkData);
 
     } catch (error) {
-        throw new Error(`Error retrieving the bookmarks: ${error.message}`)
+        throw new Error(`Error retrieving the bookmarks: ${error.message} `)
     }
 
 }
@@ -732,7 +739,7 @@ const createDisplayBookmark = async (req, res, next) => {
 
 
     } catch (error) {
-        throw new Error(`Error displaying the bookmarks: ${error.message}`)
+        throw new Error(`Error displaying the bookmarks: ${error.message} `)
     }
 }
 
@@ -748,7 +755,7 @@ const deleteBookmark = async (req, res, next) => {
 
         const conn = await bookmarkDB;
 
-        const bookmarkData = await conn.query(`DELETE * FROM bookmark WHERE Timestamp='${selectedBookmark}'`)
+        const bookmarkData = await conn.query(`DELETE * FROM bookmark WHERE Timestamp = '${selectedBookmark}'`)
 
         res
             .status(200)
@@ -757,7 +764,7 @@ const deleteBookmark = async (req, res, next) => {
 
 
     } catch (error) {
-        throw new Error(`Error deleting the bookmark ${error.message}`)
+        throw new Error(`Error deleting the bookmark ${error.message} `)
     }
 
 }

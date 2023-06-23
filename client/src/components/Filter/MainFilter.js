@@ -143,11 +143,11 @@ const MainFilter = (props) => {
 
                             {index !== props.condition.length - 1 && (
                                 <div key={`condition-container-${filter.innerID}`} className='condition-container'
-                                    onClick={() => {
-                                        handleConditionChange(index, filter)
-                                    }}>
+                                >
 
-                                    <p>{props.condition[index]}</p>
+                                    <p onClick={() => {
+                                        handleConditionChange(index, filter)
+                                    }}>{props.condition[index]}</p>
                                     <div className='line-1'></div>
                                 </div>
                             )}

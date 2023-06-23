@@ -13,7 +13,7 @@ const Header = () => {
     const {
         toggleSettings, setToggleSettings,
         setToggleMainComponent, toggleMainComponent,
-        setRecords, setFilterValues, setOuterConditionState
+        setRecords, setFilterValues, setOuterConditionState, setOrder, setSortedColumn, setLimit
     } = useContext(AppContext)
 
     const handleMainComponent = () => {
@@ -37,6 +37,9 @@ const Header = () => {
             condition: ['AND']
         }])
         setOuterConditionState(['AND'])
+        setOrder('ASC')
+        setSortedColumn("")
+        setLimit("")
     }
 
     return (
